@@ -1,1 +1,1 @@
-# LsW Android App #
+# lsw-android-app

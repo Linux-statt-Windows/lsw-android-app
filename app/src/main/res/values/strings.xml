@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MenuTest</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
+    <string-array name="menu">
+        <item>Home</item>
+        <item>Ungelesen</item>
+        <item>Aktuell</item>
+        <item>Tags</item>
+        <item>Beliebt</item>
+        <item>Benutzer</item>
+        <item>Gruppen</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+</resources>

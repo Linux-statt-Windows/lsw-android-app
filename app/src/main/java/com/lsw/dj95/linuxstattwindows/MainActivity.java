@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
                 String[] menu = getResources().getStringArray(R.array.menu);
                 mTitle = menu[position];
+                actionBar.setTitle(mTitle);
+
                 LsWFragment rFragment = new LsWFragment();
 
                 Bundle data = new Bundle();

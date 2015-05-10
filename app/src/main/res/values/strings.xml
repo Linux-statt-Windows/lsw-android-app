@@ -12,6 +12,8 @@
         <item>Beliebt</item>
         <item>Benutzer</item>
         <item>Gruppen</item>
+        <item>Login/Logout</item>
+        <item>Neues Design</item>
     </string-array>
 
     <string name="drawer_open">Navigation öffnen</string>

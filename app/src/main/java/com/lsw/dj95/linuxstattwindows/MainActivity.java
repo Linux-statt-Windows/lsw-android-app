@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private LsWFragment rFragment = new LsWFragment();
+    private long mBackPressed;
+    private static final int TIME_INTERVAL = 1000;
 
     private ActionBar actionBar;
 
@@ -55,12 +58,12 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //reloadPageFragment(position);
                 rFragment.loadCategory(position);
                 mDrawerLayout.closeDrawer(mDrawerList);
             }
         });
     }
+
 
     private void reloadPageFragment(int pos) {
         String[] menu = getResources().getStringArray(R.array.menu);
@@ -78,11 +81,13 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
+
     @Override
     public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -100,17 +106,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public void onBackPressed() {
         if (!rFragment.goBack()) {
-            super.onBackPressed();
+            if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                super.onBackPressed();
+                return;
+            } else { Toast.makeText(getBaseContext(), "Drücke zweimal auf zurück um zu Beenden", Toast.LENGTH_SHORT).show(); }
+
+            mBackPressed = System.currentTimeMillis();
         }
     }
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 }

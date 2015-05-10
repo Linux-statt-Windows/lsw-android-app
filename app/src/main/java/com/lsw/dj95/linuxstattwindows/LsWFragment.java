@@ -2,7 +2,6 @@ package com.lsw.dj95.linuxstattwindows;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.webkit.WebViewClient;
 public class LsWFragment extends Fragment {
 
     private WebView mWebView;
-    private ActionBar mActionBar;
+    private String mainSite = "https://linux-statt-windows.org";
 
     public class LswWebViewClient extends WebViewClient {
         @Override
@@ -41,10 +40,6 @@ public class LsWFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //get menu position
-        int position = getArguments().getInt("position");
-
-        String[] strMenu = getResources().getStringArray(R.array.menu);
         View v = inflater.inflate(R.layout.fragment_layout, container, false);
 
         //assign webview to variable
@@ -65,13 +60,12 @@ public class LsWFragment extends Fragment {
         // Force links and redirects to open in the WebView instead of a browser
         mWebView.setWebViewClient(new LswWebViewClient());
 
-        mWebView.loadUrl("https://linux-statt-windows.org");
+        mWebView.loadUrl(mainSite);
         return v;
     }
 
-    public void loadCategory(int position){
-        String mainSite = "https://linux-statt-windows.org";
 
+    public void loadCategory(int position){
         // Load different categories
         switch (position) {
             case 0:
@@ -94,6 +88,13 @@ public class LsWFragment extends Fragment {
                 break;
             case 6:
                 mWebView.loadUrl(mainSite + "/groups");
+                break;
+            case 7:
+                mWebView.loadUrl(mainSite + "/login");
+                break;
+            case 8:
+                mWebView.loadUrl("http://community.nodebb.org");
+                break;
         }
     }
 }

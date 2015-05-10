@@ -20,47 +20,31 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mTitle;
-    private boolean run = false;
 
     private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.navigation_drawer);
 
         actionBar = getSupportActionBar();
 
-        mTitle = getString(R.string.app_name);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer_list);
 
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
 
-        //Open Start-page at startup
-        if (!run){
-            LsWFragment rFragment = new LsWFragment();
-
-            Bundle data = new Bundle();
-            data.putInt("position", 0);
-            rFragment.setArguments(data);
-
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-
-            ft.replace(R.id.content_frame, rFragment);
-            ft.commit();
-
-            mDrawerLayout.closeDrawer(mDrawerList);
-            run = true;
-        }
+        reloadPageFragment(0);
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), R.layout.drawer_ilist_item, getResources().getStringArray(R.array.menu));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                getBaseContext(),
+                R.layout.drawer_list_item,
+                getResources().getStringArray(R.array.menu)
+        );
         mDrawerList.setAdapter(adapter);
 
         actionBar.setHomeButtonEnabled(true);
@@ -70,26 +54,28 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                String[] menu = getResources().getStringArray(R.array.menu);
-                mTitle = menu[position];
-                actionBar.setTitle(mTitle);
-
-                LsWFragment rFragment = new LsWFragment();
-
-                Bundle data = new Bundle();
-                data.putInt("position", position);
-                rFragment.setArguments(data);
-
-                android.app.FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-
-                ft.replace(R.id.content_frame, rFragment);
-                ft.commit();
-
+                reloadPageFragment(position);
                 mDrawerLayout.closeDrawer(mDrawerList);
             }
         });
+    }
+
+    private void reloadPageFragment(int pos) {
+        String[] menu = getResources().getStringArray(R.array.menu);
+        String mTitle = menu[pos];
+        actionBar.setTitle(mTitle);
+
+        LsWFragment rFragment = new LsWFragment();
+
+        Bundle data = new Bundle();
+        data.putInt("position", pos);
+        rFragment.setArguments(data);
+
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        ft.replace(R.id.content_frame, rFragment);
+        ft.commit();
     }
 
     @Override
@@ -107,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(mDrawerToggle.onOptionsItemSelected(item)){
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 

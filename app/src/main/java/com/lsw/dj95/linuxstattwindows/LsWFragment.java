@@ -16,6 +16,19 @@ public class LsWFragment extends Fragment {
     private WebView mWebView;
     private ActionBar mActionBar;
 
+    public class lswWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            view.loadUrl("javascript: function reformat_mobile() { document.getElementById(\"header-menu\").remove(); document.querySelector(\"body\").style.paddingTop = \"20px\"; } reformat_mobile(); ");
+        }
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //get menu position
@@ -40,7 +53,7 @@ public class LsWFragment extends Fragment {
         mWebView.getSettings().setBuiltInZoomControls(false);
 
         // Force links and redirects to open in the WebView instead of a browser
-        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebViewClient(new lswWebViewClient());
 
         String mainSite = "https://linux-statt-windows.org";
 
@@ -67,6 +80,8 @@ public class LsWFragment extends Fragment {
             case 6:
                 mWebView.loadUrl(mainSite + "/groups");
         }
+
+        //mWebView.loadUrl("javascript:document.getElementById(\"header-menu\").setAttribute(\"style\",\"display:none;\");");
 
         return v;
     }

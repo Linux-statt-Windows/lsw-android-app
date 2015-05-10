@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lsw.dj95.linuxstattwindows" >
+    package="com.lsw.dj95.linuxstattwindows">
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="22"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        android:label="Linux statt Windows"
         android:icon="@mipmap/ic_launcher"
-        android:label="LinuxStattWindows"
-        android:theme="@style/AppTheme" >
+        android:logo="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Linux statt Windows"
-            android:hardwareAccelerated="true" >
+            android:hardwareAccelerated="true"
+            android:label="Linux statt Windows">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +22,5 @@
 
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

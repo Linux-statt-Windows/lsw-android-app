@@ -1,52 +1,44 @@
 package com.lsw.dj95.linuxstattwindows;
 
-//import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-//import android.os.PersistableBundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-// android.webkit.WebSettings;
-//import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     //declare variables
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mTitle = "Linux statt Windows";
+    private String mTitle;
     private boolean run = false;
+
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTitle = (String) getTitle();
+        actionBar = getSupportActionBar();
+
+        mTitle = getString(R.string.app_name);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer_list);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close){
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                getSupportActionBar().setTitle(mTitle);
-                invalidateOptionsMenu();
-            }
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle("Wähle eine Kategorie aus");
-                invalidateOptionsMenu();
-            }
-        };
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
 
         //Open Start-page at startup
         if (!run){
@@ -71,10 +63,10 @@ public class MainActivity extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), R.layout.drawer_ilist_item, getResources().getStringArray(R.array.menu));
         mDrawerList.setAdapter(adapter);
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //Menu-action - selecting a category
+        // Menu-action - selecting a category
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

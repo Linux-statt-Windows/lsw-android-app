@@ -16,7 +16,7 @@ public class LsWFragment extends Fragment {
     private WebView mWebView;
     private ActionBar mActionBar;
 
-    public class lswWebViewClient extends WebViewClient {
+    public class LswWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
@@ -25,6 +25,16 @@ public class LsWFragment extends Fragment {
         @Override
         public void onPageFinished(WebView view, String url) {
             view.loadUrl("javascript: function reformat_mobile() { document.getElementById(\"header-menu\").remove(); document.querySelector(\"body\").style.paddingTop = \"20px\"; } reformat_mobile(); ");
+        }
+    }
+
+
+    public boolean goBack(){
+        if (mWebView.canGoBack()) {
+            mWebView.goBack();
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -53,8 +63,13 @@ public class LsWFragment extends Fragment {
         mWebView.getSettings().setBuiltInZoomControls(false);
 
         // Force links and redirects to open in the WebView instead of a browser
-        mWebView.setWebViewClient(new lswWebViewClient());
+        mWebView.setWebViewClient(new LswWebViewClient());
 
+        mWebView.loadUrl("https://linux-statt-windows.org");
+        return v;
+    }
+
+    public void loadCategory(int position){
         String mainSite = "https://linux-statt-windows.org";
 
         // Load different categories
@@ -80,9 +95,5 @@ public class LsWFragment extends Fragment {
             case 6:
                 mWebView.loadUrl(mainSite + "/groups");
         }
-
-        //mWebView.loadUrl("javascript:document.getElementById(\"header-menu\").setAttribute(\"style\",\"display:none;\");");
-
-        return v;
     }
 }

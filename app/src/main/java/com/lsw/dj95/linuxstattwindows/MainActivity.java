@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private LsWFragment rFragment = new LsWFragment();
 
     private ActionBar actionBar;
 
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                reloadPageFragment(position);
+                //reloadPageFragment(position);
+                rFragment.loadCategory(position);
                 mDrawerLayout.closeDrawer(mDrawerList);
             }
         });
@@ -64,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
         String[] menu = getResources().getStringArray(R.array.menu);
         String mTitle = menu[pos];
         actionBar.setTitle(mTitle);
-
-        LsWFragment rFragment = new LsWFragment();
 
         Bundle data = new Bundle();
         data.putInt("position", pos);
@@ -98,6 +98,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!rFragment.goBack()) {
+            super.onBackPressed();
+        }
     }
 
     @Override

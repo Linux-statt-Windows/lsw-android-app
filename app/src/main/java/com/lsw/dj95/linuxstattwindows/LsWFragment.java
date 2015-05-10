@@ -92,9 +92,9 @@ public class LsWFragment extends Fragment {
             case 7:
                 mWebView.loadUrl(mainSite + "/login");
                 break;
-            case 8:
+            /*case 8:
                 mWebView.loadUrl("http://community.nodebb.org");
-                break;
+                break;*/
         }
     }
 }

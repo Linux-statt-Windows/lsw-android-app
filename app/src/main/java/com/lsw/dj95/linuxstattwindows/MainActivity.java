@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String[] menu = getResources().getStringArray(R.array.menu);
+                String mTitle = menu[position];
+                actionBar.setTitle(mTitle);
                 rFragment.loadCategory(position);
                 mDrawerLayout.closeDrawer(mDrawerList);
             }

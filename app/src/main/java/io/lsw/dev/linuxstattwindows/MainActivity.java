@@ -1,4 +1,4 @@
-package com.lsw.dj95.linuxstattwindows;
+package io.lsw.dev.linuxstattwindows;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.widget.Toast;
+
+import io.lsw.dev.linuxstattwindows.R;
 
 public class MainActivity extends AppCompatActivity {
 

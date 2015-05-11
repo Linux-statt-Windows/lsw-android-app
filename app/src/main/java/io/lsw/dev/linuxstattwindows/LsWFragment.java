@@ -1,4 +1,4 @@
-package com.lsw.dj95.linuxstattwindows;
+package io.lsw.dev.linuxstattwindows;
 
 import android.app.Fragment;
 import android.os.Bundle;

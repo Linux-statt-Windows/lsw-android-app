@@ -4,7 +4,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
     defaultConfig {
-        applicationId "com.lsw.dj95.linuxstattwindows"
+        applicationId "io.lsw.dev.linuxstattwindows"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1

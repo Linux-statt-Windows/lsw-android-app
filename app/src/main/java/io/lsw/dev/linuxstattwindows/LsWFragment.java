@@ -1,14 +1,10 @@
 package io.lsw.dev.linuxstattwindows;
 
 import android.app.Fragment;
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -27,7 +23,7 @@ public class LsWFragment extends Fragment {
         }
         @Override
         public void onPageFinished(WebView view, String url) {
-            view.loadUrl("javascript: function reformat_mobile() { document.getElementById(\"header-menu\").remove(); document.querySelector(\"body\").style.paddingTop = \"20px\"; } reformat_mobile(); ");
+            view.loadUrl("javascript: function reformat_mobile() { document.getElementById(\"header-menu\").parentNode.removeChild(document.getElementById(\"header-menu\")); document.querySelector(\"body\").style.paddingTop = \"20px\"; } reformat_mobile(); ");
         }
     }
 

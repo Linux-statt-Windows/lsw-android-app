@@ -1,5 +1,6 @@
 package beta.linux_statt_windows.org.lsw_android_app_beta;
 
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -8,16 +9,25 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.SslErrorHandler;
 
 public class MainActivity extends AppCompatActivity {
 
     private String BaseURL = "http://beta.linux-statt-windows.org";
+    //private String BaseURL = "http://www.google.com";
     private WebView wv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         wv = new WebView(this);
+
+        wv.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error){
+                handler.proceed();
+            }
+        });
 
         //assign webview to variable
         //wv = (WebView) v.findViewById(R.id.fragment_webView);
@@ -35,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         wv.getSettings().setBuiltInZoomControls(false);
 
         // Force links and redirects to open in the WebView instead of a browser
-        wv.setWebViewClient(new WebViewClient());
+        //wv.setWebViewClient(new WebViewClient());
         
         setContentView(wv);
         wv.loadUrl(BaseURL);
